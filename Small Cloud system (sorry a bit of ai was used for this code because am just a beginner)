@@ -1,0 +1,29 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Clouds = ReplicatedStorage:FindFirstChild("Clouds")
+local TweenService = game:GetService("TweenService")
+
+local goal = {}
+goal.Position = Vector3.new(1000, 40, 70)
+
+local tweeninfo = TweenInfo.new(250)
+
+local CloudArray = {}
+
+for _, Cloud in ipairs(Clouds:GetChildren()) do
+	table.insert(CloudArray, Cloud)
+end
+
+for _, Clouds in ipairs(CloudArray) do
+	print(Clouds)
+end
+
+for i, cloud in ipairs(CloudArray) do
+	local x = math.random(-50, 50)
+	local z = math.random(-50, 50)
+	cloud.Position = Vector3.new(x, cloud.Position.Y, z)
+	cloud.Parent = workspace
+	
+	local tween = TweenService:Create(cloud, tweeninfo, goal)
+	tween:Play()
+	
+end
