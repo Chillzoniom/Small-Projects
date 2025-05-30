@@ -1,0 +1,26 @@
+local rp = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local mouse = game:GetService("Players").LocalPlayer:GetMouse()
+local Players = game:GetService("Players")
+local mposition = mouse.Hit.Position
+local player = Players.LocalPlayer
+
+local sound = game.ReplicatedStorage.Sounds["fast wind woosh sound effect"]
+
+local function onQPressed()
+	local character = player.Character or player.CharacterAdded:Wait()
+	local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+	local mousePosition = mouse.Hit.Position
+	humanoidRootPart.CFrame = CFrame.new(mousePosition) * CFrame.Angles(0, math.rad(180), 0)
+	sound:play()
+end
+
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+
+	if gameProcessed then return end
+
+	if input.KeyCode == Enum.KeyCode.Q then
+		onQPressed()
+	end
+end)
